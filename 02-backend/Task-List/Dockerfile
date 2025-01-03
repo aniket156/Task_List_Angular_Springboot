@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim-maven:3.8.7 AS build
+FROM openjdk:17-jdk-slim-maven:3.8.7 AS build 
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY src/ .
 
 RUN mvn clean package
 
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk-slim 
 
 WORKDIR /app
 
