@@ -5,7 +5,8 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the Spring Boot application JAR file into the container
-COPY ../target/Task-List-0.0.1-SNAPSHOT.jar app.jar
+COPY ./target/Task-List-0.0.1-SNAPSHOT.jar app.jar  # If target is in the same directory
+COPY ./../target/Task-List-0.0.1-SNAPSHOT.jar app.jar # If target is two levels up
 
 # Expose the port your application runs on
 EXPOSE 8080
