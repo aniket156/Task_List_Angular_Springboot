@@ -1,8 +1,6 @@
 # Custom Help file
 HELP.md
 
-# Ignore target directories, but allow specific ones
-target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
