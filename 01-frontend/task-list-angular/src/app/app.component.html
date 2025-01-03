@@ -1,0 +1,99 @@
+<div class="container">
+  <!-- New Task Button -->
+  <button class="new-task-button" (click)="openNewTaskModal()">
+    + New Task
+  </button>
+
+  <!-- Task Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Date <i class="fa fa-filter" (click)="openFilter('date')"></i></th>
+        <th>
+          Entity Name
+          <i class="fa fa-filter" (click)="openFilter('entityName')"></i>
+        </th>
+        <th>Time <i class="fa fa-filter" (click)="openFilter('time')"></i></th>
+        <th>Type <i class="fa fa-filter" (click)="openFilter('taskType')"></i></th>
+        <th>
+          Contact Person
+          <i class="fa fa-filter" (click)="openFilter('contactPerson')"></i>
+        </th>
+        <th>Note <i class="fa fa-filter" (click)="openFilter('note')"></i></th>
+        <th>
+          Status <i class="fa fa-filter" (click)="openFilter('status')"></i>
+        </th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of filteredTaskList">
+        <td>{{ task.date }}</td>
+        <td>{{ task.entityName }}</td>
+        <td>{{ task.time }}</td>
+        <td>{{ task.taskType }}</td>
+        <td class="contact-cell">
+          {{ task.contactPerson }}
+          <div class="hover-popup">
+            <button (click)="openAssigneeModal(task)">
+              Change Contact Person
+            </button>
+          </div>
+        </td>
+        <td class="contact-cell">
+          {{ task.note }}
+          <div class="hover-popup">
+            <button (click)="openNoteModal(task)">Add Note</button>
+          </div>
+        </td>
+        <td>{{ task.status === "OPEN" ? "OPEN" : "CLOSED" }}</td>
+        <td>
+          <select #dropdown (change)="onOptionSelect($event, task, dropdown)">
+            <option value="" disabled selected>Options</option>
+            <option value="edit">Edit</option>
+            <option value="duplicate">Duplicate</option>
+            <option value="close">Change Status to Closed</option>
+            <option value="delete">Delete</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Assignee Modal -->
+  <div *ngIf="isAssigneeModalOpen" class="modal">
+    <div class="modal-content">
+      <h3>Change Contact Person</h3>
+      <input
+        type="text"
+        [(ngModel)]="currentTask.contactPerson"
+        placeholder="Enter new assignee"
+      />
+      <button (click)="saveAssignee()">Save</button>
+      <button (click)="closeAssigneeModal()">Cancel</button>
+    </div>
+  </div>
+
+  <!--Note Modal-->
+  <div *ngIf="isNoteModalOpen" class="modal">
+    <div class="modal-content">
+      <h3>Add Note</h3>
+      <input
+        type="text"
+        [(ngModel)]="currentTask.note"
+        placeholder="Enter note"
+      />
+      <button (click)="saveNote()">Save</button>
+      <button (click)="closeNoteModal()">Cancel</button>
+    </div>
+  </div>
+
+  <app-new-task
+    [isOpen]="isNewTaskModalOpen"
+    [task]="task"
+    (close)="closeNewTaskModal()"
+    (saveTask)="addTask($event)"
+  ></app-new-task>
+
+  <button class="reset-button" (click)="resetFilters()">Reset Filters</button>
+</div>
