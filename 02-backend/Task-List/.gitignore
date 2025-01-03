@@ -1,10 +1,15 @@
+# Custom Help file
 HELP.md
+
+# Ignore target directories, but allow specific ones
 target/
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
+# Allow Maven wrapper jar to be tracked
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS (Spring Tool Suite) ###
 .apt_generated
 .classpath
 .factorypath
